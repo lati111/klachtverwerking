@@ -49,8 +49,10 @@ require "vendor/autoload.php";
         $phpmailer->send();
         $_SESSION["last"] = $_POST;
         
-        $log->warning("mail verstuurd naar " . $_POST["email"] . " van gebruiker " . $_POST["naam"] . "met bericht : " . $_POST["message"]);
+        // echo verstuurd
+        $log->warning("mail verstuurd naar " . $_POST["email"] . " van gebruiker " . $_POST["naam"] . " met bericht : " . $_POST["message"]);
     } catch (Exception $e) {
+        // echo error
         $log->error($phpmailer->ErrorInfo);
     }
         }

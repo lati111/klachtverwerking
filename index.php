@@ -39,12 +39,13 @@ require "vendor/autoload.php";
 
         $phpmailer->setFrom('jvzelst111@gmail.com');
         $phpmailer->addAddress($_POST["email"], $_POST["naam"]);
+        $phpmailer->AddCC    = ("jvzelst111@gmail.com");
 
         $phpmailer->isHTML(false);
         $phpmailer->Subject = 'Here is the subject';
         $phpmailer->Body    = $_POST["message"];
 
-        $log = new Logger('name');
+        $log = new Logger('email_log');
         $log->pushHandler(new StreamHandler('info.log', Logger::WARNING));
         $phpmailer->send();
         $_SESSION["last"] = $_POST;

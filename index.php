@@ -1,4 +1,5 @@
 <?php
+session_start();
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -18,7 +19,7 @@ require "vendor/autoload.php";
 <body>
 <form action="" method="post">
     <label>naam: <input type="text" name="naam"></label><br>
-    <label>email adres: <input type="email" name="naam"></label><br>
+    <label>email adres: <input type="email" name="email"></label><br>
     <label>
         omschrijving: <br>
         <textarea name="message" cols="30" rows="10"></textarea><br>
@@ -26,7 +27,7 @@ require "vendor/autoload.php";
     <label><input type="submit" value="verstuur"></label>
 
     <?php
-    if(isset($_POST["email"])) {
+    if(isset($_POST["email"]) && $_SESSION["last"] !== $_POST) {
     try {
         $phpmailer = new PHPMailer();
         $phpmailer->isSMTP();
@@ -46,6 +47,7 @@ require "vendor/autoload.php";
         $log = new Logger('name');
         $log->pushHandler(new StreamHandler('info.log', Logger::WARNING));
         $phpmailer->send();
+        $_SESSION["last"] = $_POST;
         
         $log->warning("mail verstuurd naar " . $_POST["email"] . " van gebruiker " . $_POST["naam"] . "met bericht : " . $_POST["message"]);
     } catch (Exception $e) {

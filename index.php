@@ -2,6 +2,8 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 require "vendor/autoload.php";
 ?>
 <!doctype html>
@@ -41,13 +43,23 @@ require "vendor/autoload.php";
         $phpmailer->Subject = 'Here is the subject';
         $phpmailer->Body    = $_POST["message"];
 
+        $log = new Logger('name');
+        $log->pushHandler(new StreamHandler('path/to/your.log', Logger::WARNING));
         $phpmailer->send();
-        echo 'Message has been sent';
+        
+        $log->warning("mail verstuurd naar " . $_POST["email"] . " van gebruiker " . $_POST["naam"] . "met bericht : " . $_POST["message"]);
     } catch (Exception $e) {
-        echo "Message could not be sent. Mailer Error: {$phpmailer->ErrorInfo}";
+        $log->error($phpmailer->ErrorInfo);
     }
         }
-
+        
+        
+        // create a log channel
+        
+        
+        // add records to the log
+        
+        
     ?>
 </form>
 </body>

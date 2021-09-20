@@ -1,0 +1,15 @@
+{
+  "name": "vendor_name/klachtverwerking",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "jvzel",
+      "email": "email@example.com"
+    }
+  ],
+  "require": {
+    "phpmailer/phpmailer": "^6.5"
+  }
+}
